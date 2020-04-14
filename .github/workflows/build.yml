@@ -1,0 +1,68 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration:
+          - Release
+        platform:
+          - x64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Install MFC libraries
+        shell: pwsh
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $vsPath = & $vswhere -latest -products * -property installationPath
+
+          if (-not $vsPath) {
+            throw "Visual Studio installation not found"
+          }
+
+          $installer = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vs_installer.exe"
+
+          & $installer modify `
+            --installPath "$vsPath" `
+            --add Microsoft.VisualStudio.Component.VC.ATLMFC `
+            --quiet --wait --norestart
+
+          if ($LASTEXITCODE -ne 0) {
+            throw "Failed to install MFC components"
+          }
+          
+          ls
+          
+      - name: Build
+        shell: pwsh
+        run: |
+          msbuild .\winralter.sln `
+            /m `
+            /p:Configuration=${{ matrix.configuration }} `
+            /p:Platform=${{ matrix.platform }} `
+            /verbosity:minimal
+
+      - name: Upload Release artifact
+        if: matrix.configuration == 'Release'
+        uses: actions/upload-artifact@v4
+        with:
+          name: winralter-${{ matrix.platform }}
+          path: |
+            ${{ matrix.platform }}\Release\winralter.exe
+          if-no-files-found: error

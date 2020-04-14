@@ -1,0 +1,24 @@
+stages:
+  - build
+
+build:
+  stage: build
+
+  parallel:
+    matrix:
+      - CONFIGURATION:
+          - Release
+        PLATFORM:
+          - x64
+
+  tags:
+    - msvs-2019
+
+  script:
+    - msbuild .\winralter.sln /m /p:Configuration=$env:CONFIGURATION /p:Platform=$env:PLATFORM /p:PlatformToolset=v142 /verbosity:minimal
+
+  artifacts:
+    when: on_success
+    expire_in: 7 days
+    paths:
+      - "**/winralter.exe"

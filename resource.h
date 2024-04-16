@@ -1,6 +1,3 @@
-//{{NO_DEPENDENCIES}}
-// Включаемый файл, созданный в Microsoft Visual C++.
-// Используется winralter.rc
 //
 #define IDD_WINRALTER_DIALOG            1001
 #define IDR_MAINFRAME                   1002

@@ -1,4 +1,4 @@
-
+#include "CwrHelper.h"
 #include "ComboCompletion.h"
 
 #ifdef _DEBUG
@@ -33,10 +33,6 @@ namespace winralter
 
 	BOOL CComboCompletion::PreTranslateMessage(MSG* pMsg)
 	{
-		// Need to check for backspace/delete. These will modify the text in
-		// the edit box, causing the auto complete to just add back the text
-		// the user has just tried to delete. 
-
 		if (pMsg->wParam == 'A' && GetKeyState(VK_CONTROL) < 0) // Ctrl+A is pressed
 		{
 			this->SetEditSel(0, -1); // Select all text and move cursor to the end
@@ -44,14 +40,25 @@ namespace winralter
 
 		if (pMsg->message == WM_KEYDOWN)
 		{
-			m_bAutoComplete = TRUE;
-
 			int nVirtKey = (int)pMsg->wParam;
+
+			// remove selected command from the history (Ctrl+Shift+Del)
+			if (nVirtKey == VK_DELETE && GetKeyState(VK_SHIFT) < 0 && GetKeyState(VK_CONTROL) < 0) 
+			{
+				CString str;
+				GetWindowText(str); // this->GetCurSel() | ->GetLBText()
+				CwrHelper::RemoveCmdFromFile(static_cast<std::string>(str), this);
+				return CComboBox::PreTranslateMessage(pMsg);
+			}
+
+			// Need to check for backspace/delete. These will modify the text in
+			// the edit box, causing the auto complete to just add back the text
+			// the user has just tried to delete.
+
+			m_bAutoComplete = TRUE;			
 			if (nVirtKey == VK_DELETE || nVirtKey == VK_BACK)
 				m_bAutoComplete = FALSE;
 		}
-
-		// if (pMsg->message == WM_HOTKEY){ }
 
 		return CComboBox::PreTranslateMessage(pMsg);
 	}

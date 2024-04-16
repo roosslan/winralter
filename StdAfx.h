@@ -19,6 +19,10 @@
 
 #include <iostream>
 #include <string>
+
+#include <thread>
+#include <future>
+
 #include <sstream>
 #include <string>
 #include <fstream>

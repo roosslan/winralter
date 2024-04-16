@@ -1,5 +1,4 @@
 // winralterDlg.h: header file
-//
 
 #if !defined(AFX_WINRALTERDLG_H__115F4226_5CD5_11D1_ABBA_00A0243D1382__INCLUDED_)
 #define AFX_WINRALTERDLG_H__115F4226_5CD5_11D1_ABBA_00A0243D1382__INCLUDED_
@@ -12,29 +11,27 @@
 
 namespace winralter
 {
-	/////////////////////////////////////////////////////////////////////////////
 	// CWinRAlterDlg dialog
 
 	class CWinRAlterDlg : public CDialog
 	{
+		afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 		// Construction
 	public:
 		CWinRAlterDlg(CWnd* pParent = NULL);	// standard constructor
-
+		char* m_wrVersion = "WinRAlter 1.0.2.1";
 		// Dialog Data
 			//{{AFX_DATA(CWinRAlterDlg)
 		enum { IDD = IDD_WINRALTER_DIALOG };
-		CComboCompletion	m_ComboBox;
+		CComboCompletion m_ComboBox;
 		//}}AFX_DATA
-
+		afx_msg void OnBnClickedButtonBrowse();
 		// ClassWizard generated virtual function overrides
 		//{{AFX_VIRTUAL(CWinRAlterDlg)
 	protected:
 		virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 		//}}AFX_VIRTUAL
-
 	// Implementation
-	protected:
 		// Generated message map functions
 		//{{AFX_MSG(CWinRAlterDlg)
 		virtual BOOL OnInitDialog();
@@ -42,13 +39,6 @@ namespace winralter
 		afx_msg void OnSelchangeCombo();
 		//}}AFX_MSG
 		DECLARE_MESSAGE_MAP()
-	public:
-		afx_msg void OnBnClickedButtonBrowse();
-	private:
-		afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
-		bool SaveCmdToFile(bool asAdministrator);
-		void LoadCmdFromFile();
-		std::string GetConfigFilePath(int ConfigFileType);
 	};
 }
 //{{AFX_INSERT_LOCATION}}

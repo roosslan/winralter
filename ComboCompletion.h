@@ -18,32 +18,25 @@ namespace winralter
 		// Construction
 	public:
 		CComboCompletion();
-
 		// Attributes
 	public:
-
 		// Operations
 	public:
-
 		// Overrides
-			// ClassWizard generated virtual function overrides
-			//{{AFX_VIRTUAL(CComboCompletion)
+		// ClassWizard generated virtual function overrides
+		//{{AFX_VIRTUAL(CComboCompletion)
 	public:
 		virtual BOOL PreTranslateMessage(MSG* pMsg);
 		//}}AFX_VIRTUAL
-
 	// Implementation
 	public:
 		virtual ~CComboCompletion();
-
 		BOOL m_bAutoComplete;
-
 		// Generated message map functions
 	protected:
 		//{{AFX_MSG(CComboCompletion)
 		afx_msg void OnEditUpdate();
 		//}}AFX_MSG
-
 		DECLARE_MESSAGE_MAP()
 	};
 }

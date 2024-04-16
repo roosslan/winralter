@@ -24,14 +24,13 @@ namespace winralter
 	{
 	public:
 		CWinRAlterApp();
-
 		// Overrides
-			// ClassWizard generated virtual function overrides
-			//{{AFX_VIRTUAL(CWinRAlterApp)
-	public:
+		// ClassWizard generated virtual function overrides
+		//{{AFX_VIRTUAL(CWinRAlterApp)
 		virtual BOOL InitInstance();
-		//}}AFX_VIRTUAL
 
+		//}}AFX_VIRTUAL
+		
 	// Implementation
 
 		//{{AFX_MSG(CWinRAlterApp)

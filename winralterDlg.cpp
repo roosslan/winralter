@@ -4,11 +4,14 @@
 #include "winralterDlg.h"
 #include "CwrHelper.h"
 
+/*
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #endif
+*/
+
 namespace winralter
 {
 	CWinRAlterDlg::CWinRAlterDlg(CWnd* pParent /*=NULL*/)
@@ -39,8 +42,8 @@ namespace winralter
 	// CWinRAlterDlg message handlers
 	afx_msg void CWinRAlterDlg::OnSysCommand(UINT nID, LPARAM lParam) {
 
-		if ((nID & 0xFFF0) == IDM_ABOUT) {
-			int res = AfxMessageBox("(c) 2003-2024 www.0x1e.dev/winralter");
+		if ((nID & 0xFFF0) == IDM_ABOUT) {		
+			int res = AfxMessageBox((m_wrVersion + std::string("\n(c) 2003-2024\nwww.0x2.dev/winralter")).c_str());
 		}
 		else {
 			CDialog::OnSysCommand(nID, lParam);
@@ -50,7 +53,7 @@ namespace winralter
 	BOOL CWinRAlterDlg::OnInitDialog()
 	{
 		CDialog::OnInitDialog();
-		SetWindowText(m_wrVersion);
+//		SetWindowText(m_wrVersion);
 		HICON hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDI_ICON_MAIN));
 		SetIcon(hIcon, FALSE);
 

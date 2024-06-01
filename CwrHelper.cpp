@@ -10,10 +10,12 @@ namespace winralter
 		if (ConfigFileType == PermanentConfig)
 			fn_ini = "\\winralter.ini";
 		else if (ConfigFileType == TemporaryConfig)
-			fn_ini = "\\winralter.inf";		// Temporary config file
+			fn_ini = "\\winralter.inf";				// Temporary config file
 
 		DWORD res = GetModuleFileName(NULL, current_path, MAX_PATH);
-		PathRemoveFileSpec(current_path);						// Removes filename from the path	
+
+		// Removes filename from the path	
+		PathRemoveFileSpec(current_path);								
 		strcat(current_path, fn_ini);
 		//		Use MyDocuments in case of file not found
 		if (!std::filesystem::exists(std::string(current_path)) && ConfigFileType != TemporaryConfig)

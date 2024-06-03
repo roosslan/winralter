@@ -11,7 +11,7 @@ namespace winralter
 		static std::string GetConfigFilePath(int ConfigFileType);
 		static void RemoveCmdFromFile(std::string removeCommand, CComboCompletion* m_ComboBox);
 		static void LoadCmdFromFile(CComboCompletion *m_ComboBox);
-		static bool SaveCmdToFile(CComboCompletion* m_ComboBox);
+		static bool SaveCmdToFile(CString cmdToSave); //CComboCompletion* m_ComboBox);
 		static bool ExecuteFile(CComboCompletion* m_ComboBox);
 		static void BrowseFile(CComboCompletion* m_ComboBox);
 	};

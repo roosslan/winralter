@@ -146,16 +146,16 @@ namespace winralter
 		}
 	}
 
-	bool CwrHelper::SaveCmdToFile(CComboCompletion* m_ComboBox)
+	bool CwrHelper::SaveCmdToFile(CString cmdToSave) // CComboCompletion* m_ComboBox)
 	{
 		CString cmdToLaunch;
 		std::string readedLine, cmdForIni;
 
-		m_ComboBox->GetWindowText(cmdToLaunch);
+		cmdToLaunch = cmdToSave; // m_ComboBox->GetWindowText(cmdToLaunch);
 		cmdForIni = cmdToLaunch;
 		cmdForIni = std::regex_replace(cmdForIni, std::regex("^ +| +$"), "$1"); // removing leading and trailing spaces
 
-		if (ExecuteFile(m_ComboBox))
+//		if (ExecuteFile(m_ComboBox))
 		{
 			std::ofstream of;
 			of.open(CwrHelper::GetConfigFilePath(CwrHelper::TemporaryConfig), std::ofstream::out | std::ofstream::app);
@@ -193,8 +193,8 @@ namespace winralter
 			}
 			return true;
 		}
-		else
-			return false;
+//		else
+//			return false;
 	}
 
 	void CwrHelper::RemoveCmdFromFile(std::string removeCommand, CComboCompletion* m_ComboBox)

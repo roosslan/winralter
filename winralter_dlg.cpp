@@ -57,6 +57,23 @@ namespace winralter {
 
 		CDialog::OnInitDialog();
 
+		/* Place the dialog above the taskbar, near the lower-left corner */
+		CRect rcWindow;
+		CRect rcWorkArea;
+		GetWindowRect(&rcWindow);
+		
+		if (::SystemParametersInfo(SPI_GETWORKAREA, 0, &rcWorkArea, 0)) {
+		    const int margin = 20;
+		    int x = rcWorkArea.left + margin;
+		    int y = rcWorkArea.bottom - rcWindow.Height() - margin;
+		
+		    if (y < rcWorkArea.top + margin)
+		        y = rcWorkArea.top + margin;
+		
+		    SetWindowPos(nullptr, x, y, 0, 0,
+		        SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+		}		
+
 		m_PictureBackgroundBrush.CreateSolidBrush(RGB(255, 255, 255));
 
 		const HICON hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDI_ICON_MAIN));

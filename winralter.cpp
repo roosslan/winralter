@@ -34,6 +34,16 @@ namespace winralter {
 #else
 		Enable3dControlsStatic();	// Call this when linking to MFC statically
 #endif
+		// Allow only one running instance of WinRAlter.
+		HANDLE hMutex = ::CreateMutexW(
+			nullptr, FALSE, L"Local\\WinRAlter.SingleInstance");
+		if (hMutex == nullptr)
+			return FALSE;
+
+		if (::GetLastError() == ERROR_ALREADY_EXISTS) {
+			::CloseHandle(hMutex);
+			return FALSE;
+		}
 
 	/*	BOOL b_hk = RegisterHotKey(nullptr, 1, MOD_WIN | MOD_NOREPEAT, 0x52);  // 0x52 is 'R' */
 
@@ -43,6 +53,7 @@ namespace winralter {
 		if (n_response == IDOK){	}
 		else if (n_response == IDCANCEL)	{ }
 		else { }
+		::CloseHandle(hMutex);
 		// Since the dialog has been closed, return FALSE so that we exit the
 		//  application, rather than start the application's message pump.
 		return false;

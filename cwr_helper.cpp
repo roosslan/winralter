@@ -178,13 +178,11 @@ namespace winralter {
 				CComPtr<IShellItem> item;
 				hr = file_open->GetResult(&item);
 
-				if (SUCCEEDED(hr))
-				{
+				if (SUCCEEDED(hr)) {
 					PWSTR file_path = nullptr;
 					hr = item->GetDisplayName(SIGDN_FILESYSPATH, &file_path);
 
-					if (SUCCEEDED(hr) && file_path != nullptr)
-					{
+					if (SUCCEEDED(hr) && file_path != nullptr) {
 						CString command(file_path);
 						CoTaskMemFree(file_path);
 
@@ -202,8 +200,7 @@ namespace winralter {
 			}
 		}
 
-		if (hr != HRESULT_FROM_WIN32(ERROR_CANCELLED) && FAILED(hr))
-		{
+		if (hr != HRESULT_FROM_WIN32(ERROR_CANCELLED) && FAILED(hr)) {
 			CString message;
 			message.Format(L"Unable to open the file picker (HRESULT 0x%08lX).", hr);
 			AfxMessageBox(message, MB_OK | MB_ICONERROR);
@@ -212,8 +209,7 @@ namespace winralter {
 		CoUninitialize();
 	}
 
-	void cwr_helper::load_cmd_from_file(ccombo_completion* m_combobox)
-	{
+	void cwr_helper::load_cmd_from_file(ccombo_completion* m_combobox) {
 		m_combobox->ResetContent();
 		std::ifstream input_stream(std::filesystem::path(permanent_config), std::ios::binary);
 		if (!input_stream.is_open()) {
@@ -232,7 +228,16 @@ namespace winralter {
 			if (m_combobox->FindStringExact(-1, command) == CB_ERR)
 				m_combobox->AddString(command);
 		}
-		m_combobox->SetWindowText(L"");
+
+		/* The most recently used command is stored as the last history item */
+		CStringW last_command;
+		const int count = m_combobox->GetCount();
+		if (count > 0 && m_combobox->GetLBTextLen(count - 1) != CB_ERR) {
+			m_combobox->GetLBText(count - 1, last_command);
+			m_combobox->SetWindowText(last_command);
+		}
+		else
+			m_combobox->SetWindowText(L"");
 	}
 
 	bool cwr_helper::save_cmd_to_file(const CString& cmd_to_save)

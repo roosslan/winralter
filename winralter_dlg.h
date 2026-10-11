@@ -15,7 +15,7 @@ namespace winralter {
 		CBrush m_PictureBackgroundBrush;
 	public:
 		cwinralter_dlg(CWnd* pParent = nullptr);	// standard constructor
-		char* m_wrVersion = "WinRAlter 2.1.0.1";
+		char* m_wrVersion = "WinRAlter 2.2.2.6";
 		// Dialog Data
 			//{{AFX_DATA(cwinralter_dlg)
 		enum { IDD = IDD_WINRALTER_DIALOG };

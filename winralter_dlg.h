@@ -15,7 +15,7 @@ namespace winralter {
 		CBrush m_PictureBackgroundBrush;
 	public:
 		cwinralter_dlg(CWnd* pParent = nullptr);	// standard constructor
-		char* m_wrVersion = "WinRAlter 2.2.2.6";
+		char* m_wrVersion = "WinRAlter 2.3.2.6";
 		// Dialog Data
 			//{{AFX_DATA(cwinralter_dlg)
 		enum { IDD = IDD_WINRALTER_DIALOG };
@@ -35,9 +35,11 @@ namespace winralter {
 		afx_msg void OnSelchangeCombo();
 		afx_msg void OnPaint();
 		afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+		afx_msg LRESULT OnActivateExistingInstance(WPARAM, LPARAM);
 		//}}AFX_MSG
 		DECLARE_MESSAGE_MAP()
 	};
+	extern UINT WM_WINRALTER_ACTIVATE;
 }
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual Studio will insert additional declarations immediately before the previous line.

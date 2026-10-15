@@ -23,24 +23,33 @@ namespace winralter {
 
 	void cwinralter_dlg::DoDataExchange(CDataExchange* pDX) {
 		CDialog::DoDataExchange(pDX);
-		//{{AFX_DATA_MAP(cwinralter_dlg)
 		DDX_Control(pDX, IDC_COMBO, m_combobox);
-		//}}AFX_DATA_MAP
 	}
 
 	BEGIN_MESSAGE_MAP(cwinralter_dlg, CDialog)
-		//{{AFX_MSG_MAP(cwinralter_dlg)
 		ON_CBN_SELCHANGE(IDC_COMBO, OnSelchangeCombo)
 		ON_WM_PAINT()
 		ON_WM_CTLCOLOR()
-		//}}AFX_MSG_MAP
 		ON_BN_CLICKED(IDC_BUTTON_BROWSE, &cwinralter_dlg::on_browse_click)
 		ON_WM_SYSCOMMAND()
-		// ON_COMMAND(IDM_ABOUT, cwinralter_dlg::OnAbout)
+		ON_REGISTERED_MESSAGE(
+			WM_WINRALTER_ACTIVATE,
+			OnActivateExistingInstance)
 	END_MESSAGE_MAP()
 
-	///////////////////////////////////////////////////////////////////////////////
-	// cwinralter_dlg message handlers
+	LRESULT cwinralter_dlg::OnActivateExistingInstance(WPARAM, LPARAM) {
+		if (IsIconic())
+			ShowWindow(SW_RESTORE);
+		else
+			ShowWindow(SW_SHOW);
+
+		SetForegroundWindow();
+		SetActiveWindow();
+		m_combobox.SetFocus();
+
+		return 0;
+	}
+
 	afx_msg void cwinralter_dlg::OnSysCommand(UINT nID, LPARAM lParam) {
 
 		if ((nID & 0xFFF0) == IDM_ABOUT) {		
@@ -123,12 +132,10 @@ namespace winralter {
 	}
 
 	HBRUSH cwinralter_dlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor) {
-		if (nCtlColor == CTLCOLOR_STATIC)
-		{
+		if (nCtlColor == CTLCOLOR_STATIC) {
 			pDC->SetBkMode(TRANSPARENT);
 
-			if (pWnd->GetDlgCtrlID() == IDC_PICTURE)
-			{
+			if (pWnd->GetDlgCtrlID() == IDC_PICTURE) {
 				// Фон Picture Control всегда белый
 				return (HBRUSH)m_PictureBackgroundBrush.GetSafeHandle();
 			}
@@ -140,8 +147,7 @@ namespace winralter {
 		return CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
 	}
 
-	void cwinralter_dlg::OnOK()
-	{
+	void cwinralter_dlg::OnOK() {
 		CString command;
 		m_combobox.GetWindowText(command);
 		command.Trim();
@@ -151,9 +157,8 @@ namespace winralter {
 		if (!cwr_helper::execute_file(&m_combobox))
 			return;
 
-		// History failures should not prevent a successfully launched app from running.
-		if (!cwr_helper::save_cmd_to_file(command))
-		{
+		/* History failures should not prevent a successfully launched app from running */
+		if (!cwr_helper::save_cmd_to_file(command))	{
 			AfxMessageBox(
 				L"The command was started, but WinRAlter could not update the command history.",
 				MB_OK | MB_ICONWARNING);
@@ -161,13 +166,12 @@ namespace winralter {
 		EndDialog(IDOK);
 	}
 
-	void cwinralter_dlg::OnSelchangeCombo()
-	{
+	void cwinralter_dlg::OnSelchangeCombo()	{
 		// TRACE0("Selection has changed\n");
 	}
 
-	void cwinralter_dlg::on_browse_click() /* "Browse..." for file button */
-	{
+	/* "Browse..." for file button */
+	void cwinralter_dlg::on_browse_click() {
 		cwr_helper::browse_file(&m_combobox);
 	}
 

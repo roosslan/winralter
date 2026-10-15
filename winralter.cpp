@@ -10,22 +10,21 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 namespace winralter {
-	// CWinRAlterApp
+
+	UINT WM_WINRALTER_ACTIVATE =
+		::RegisterWindowMessageW(L"winralter.activate.1");
 	BEGIN_MESSAGE_MAP(CWinRAlterApp, CWinApp)
 		//{{AFX_MSG_MAP(CWinRAlterApp)
 		//}}AFX_MSG
 		//ON_COMMAND(ID_HELP, CWinApp::OnHelp)	
 	END_MESSAGE_MAP()
 
-	// CWinRAlterApp construction
-	CWinRAlterApp::CWinRAlterApp(){}
+	CWinRAlterApp::CWinRAlterApp() { }
 
-	// The one and only CWinRAlterApp object
+	/* The one and only CWinRAlterApp object */
 	CWinRAlterApp the_app;
 
-	// CWinRAlterApp initialization
-	BOOL CWinRAlterApp::InitInstance()
-	{
+	BOOL CWinRAlterApp::InitInstance() {
 		// Standard initialization
 
 #ifdef _AFXDLL
@@ -38,11 +37,22 @@ namespace winralter {
 		HANDLE hMutex = ::CreateMutexW(
 			nullptr, FALSE, L"Local\\WinRAlter.SingleInstance");
 		if (hMutex == nullptr)
-			return FALSE;
+			return false;
 
 		if (::GetLastError() == ERROR_ALREADY_EXISTS) {
+			/* Ask the running instance to activate its dialog */
+			DWORD_PTR result = 0;
+			::SendMessageTimeoutW(
+			HWND_BROADCAST,
+			WM_WINRALTER_ACTIVATE,
+			0,
+			0,
+			SMTO_ABORTIFHUNG,
+			1000,
+			&result);
 			::CloseHandle(hMutex);
-			return FALSE;
+
+			return false;
 		}
 
 	/*	BOOL b_hk = RegisterHotKey(nullptr, 1, MOD_WIN | MOD_NOREPEAT, 0x52);  // 0x52 is 'R' */
@@ -50,12 +60,12 @@ namespace winralter {
 		cwinralter_dlg dlg;
 		m_pMainWnd = &dlg;
 		int n_response = dlg.DoModal();
-		if (n_response == IDOK){	}
-		else if (n_response == IDCANCEL)	{ }
+		if (n_response == IDOK) { }
+		else if (n_response == IDCANCEL) { }
 		else { }
 		::CloseHandle(hMutex);
-		// Since the dialog has been closed, return FALSE so that we exit the
-		//  application, rather than start the application's message pump.
+		/* Since the dialog has been closed, return FALSE so that we exit the
+		   application, rather than start the application's message pump		*/
 		return false;
 	} // InitInstance
 }

@@ -67,8 +67,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,3,2,6
- PRODUCTVERSION 2,3,2,6
+ FILEVERSION 3,10,2,6
+ PRODUCTVERSION 3,10,2,6
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -85,12 +85,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "sborka.dev"
             VALUE "FileDescription", "WinRAlter Launcher Application"
-            VALUE "FileVersion", "2.3.2.6"
+            VALUE "FileVersion", "3.10.2.6"
             VALUE "InternalName", "winralter"
-            VALUE "LegalCopyright", "Copyright (C) sborka.dev 2003-2024"
+            VALUE "LegalCopyright", "Copyright (C) sborka.dev 2003-2026"
             VALUE "OriginalFilename", "winralter.exe"
             VALUE "ProductName", "WinRAlter"
-            VALUE "ProductVersion", "2.3.2.6"
+            VALUE "ProductVersion", "3.10.2.6"
         END
     END
     BLOCK "VarFileInfo"

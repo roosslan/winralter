@@ -8,6 +8,5 @@
 - история ранее выполненных команд;
 - автодополнение команд;
 - удаление текущей команды из истории по Ctrl+Shift+Delete;
-- Browse... заключает путь в кавычки, если он содержит пробелы
 
-![winralter.gif](https://github.com/roosslan/winralter/blob/trunk/winralter.gif?raw=true)
+![winralter.gif](winralter.gif)

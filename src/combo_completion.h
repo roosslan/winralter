@@ -6,7 +6,6 @@
 #endif // _MSC_VER >= 1000
 
 namespace winralter {
-	/////////////////////////////////////////////////////////////////////////////
 	// ccombo_completion window
 
 	class ccombo_completion final : public CComboBox {

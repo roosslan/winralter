@@ -14,7 +14,6 @@
 #include "resource.h"		// main symbols
 
 namespace winralter {
-	/////////////////////////////////////////////////////////////////////////////
 	// CWinRAlterApp:
 	// See winralter.cpp for the implementation of this class
 

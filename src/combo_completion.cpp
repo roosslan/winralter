@@ -82,9 +82,9 @@ namespace winralter {
 		WORD dEnd = HIWORD(dwCurSel);
 
 		/* Search for, and select in, and string in the combo box that is prefixed
-		   by the text in the edit box												*/
+		   by the text in the edit box														*/
 		if (SelectString(-1, str) == CB_ERR) {
-			SetWindowText(str);		/* No text selected, so restore what was there before */
+			SetWindowText(str);		/* No text selected, so restore what was there before	*/
 			if (dwCurSel != CB_ERR)
 				SetEditSel(dStart, dEnd);	/* restore cursor postion */
 		}

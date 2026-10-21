@@ -136,27 +136,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="combo_completion.cpp">
+    <ClCompile Include="src\combo_completion.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="cwr_helper.cpp" />
-    <ClCompile Include="winralter.cpp">
+    <ClCompile Include="src\cwr_helper.cpp" />
+    <ClCompile Include="src\winralter.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="winralter_dlg.cpp">
+    <ClCompile Include="src\winralter_dlg.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="combo_completion.h" />
-    <ClInclude Include="cwr_helper.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="winralter.h" />
-    <ClInclude Include="winralter_dlg.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="src\combo_completion.h" />
+    <ClInclude Include="src\cwr_helper.h" />
+    <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\winralter.h" />
+    <ClInclude Include="src\winralter_dlg.h" />
+    <ClInclude Include="src\resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="winralter.rc" />
+    <ResourceCompile Include="res\winralter.rc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\winralter.rc2" />

@@ -1,18 +1,16 @@
 #include "cwr_helper.h"
-#include <vector>
-#include <atlconv.h>
 
 namespace winralter {
-	std::string get_config_file_path(const int config_file_type){
-		// Keep the temporary file beside the destination: replacement must not
-		// cross volumes, and should be atomic whenever the filesystem supports it.
+	std::string get_config_file_path(const int config_file_type) {
+		/* Keep the temporary file beside the destination: replacement must not
+		   cross volumes, and should be atomic whenever the filesystem supports it	*/
 		if (config_file_type == 1) {
 			const std::filesystem::path history(permanent_config);
 			return (history.parent_path() / "winralter.inf").string();
 		}
 
-		// Use explicit ANSI APIs because this function stores paths in std::string.
-		// Generic Win32 APIs resolve to their Unicode variants in Unicode builds.
+		/* Use explicit ANSI APIs because this function stores paths in std::string.
+		   Generic Win32 APIs resolve to their Unicode variants in Unicode builds	*/
 		CHAR current_path[MAX_PATH]{};
 		const char* fn_ini = "\\winralter.ini";
 
@@ -26,7 +24,7 @@ namespace winralter {
 		if (strcat_s(current_path, MAX_PATH, fn_ini) != 0)
 			return std::string(fn_ini + 1);
 
-		// Fall back to My Documents if the adjacent INI file does not exist.
+		/* Пишем в директорию »Мои документы«, если не нашли ini-файл */
 		if (!std::filesystem::exists(std::string(current_path)) && config_file_type != 1) {
 			CHAR my_documents[MAX_PATH]{};
 			const HRESULT result = SHGetFolderPathA(
@@ -39,8 +37,7 @@ namespace winralter {
 	}
 
 	static CString shell_error_text(const DWORD error) {
-		switch (error)
-		{
+		switch (error) {
 		case ERROR_FILE_NOT_FOUND:
 			return L"The specified program or file was not found.";
 		case ERROR_PATH_NOT_FOUND:
@@ -63,8 +60,7 @@ namespace winralter {
 			static_cast<DWORD>(std::size(buffer)),
 			nullptr);
 
-		if (length != 0)
-		{
+		if (length != 0) {
 			CString message(buffer, static_cast<int>(length));
 			message.Trim();
 			return message;
@@ -73,22 +69,21 @@ namespace winralter {
 		return L"Windows could not start the command.";
 	}
 
-	bool cwr_helper::execute_file(const ccombo_completion* m_combobox){
+	bool cwr_helper::execute_file(const ccombo_completion* m_combobox) {
 		CStringW command;
 		m_combobox->GetWindowText(command);
 		command.Trim();
 		if (command.IsEmpty())
 			return false;
 
-		// Windows command lines allow a quoted executable path followed by arguments.
-		// For unquoted commands, treat the first whitespace as the argument boundary.
+		/* После пути к .exe в кавычках - идут аргументы
+		   Если команда без кавычек, то первый пробел считаем разделителем от параметра */
 		std::wstring text(command.GetString());
 		std::wstring executable;
 		std::wstring parameters;
 		if (!text.empty() && text.front() == L'"') {
 			const size_t closing_quote = text.find(L'"', 1);
-			if (closing_quote == std::wstring::npos)
-			{
+			if (closing_quote == std::wstring::npos) {
 				AfxMessageBox(
 					L"Unable to start the command because the executable path has an unmatched quote.",
 					MB_OK | MB_ICONWARNING);
@@ -125,8 +120,7 @@ namespace winralter {
 			return true;
 
 		const DWORD error = GetLastError();
-		if (error != ERROR_CANCELLED)
-		{
+		if (error != ERROR_CANCELLED) {
 			CString message = L"Unable to start the command.";
 			message += L"\n\n";
 			message += shell_error_text(error);
@@ -136,21 +130,18 @@ namespace winralter {
 		return false;
 	}
 
-	void cwr_helper::browse_file(ccombo_completion* m_combobox)
-	{
+	void cwr_helper::browse_file(ccombo_completion* m_combobox)	{
 		const HRESULT init_result = CoInitializeEx(
 			nullptr, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
 
-		if (init_result == RPC_E_CHANGED_MODE)
-		{
+		if (init_result == RPC_E_CHANGED_MODE) {
 			AfxMessageBox(
 				L"Unable to open the file picker because this thread uses an incompatible COM apartment.",
 				MB_OK | MB_ICONERROR);
 			return;
 		}
 
-		if (FAILED(init_result))
-		{
+		if (FAILED(init_result)) {
 			AfxMessageBox(
 				L"Unable to initialize the Windows file picker.",
 				MB_OK | MB_ICONERROR);
@@ -165,16 +156,14 @@ namespace winralter {
 			CLSCTX_INPROC_SERVER,
 			IID_PPV_ARGS(&file_open));
 
-		if (SUCCEEDED(hr))
-		{
+		if (SUCCEEDED(hr)) {
 			DWORD options = 0;
 			if (SUCCEEDED(file_open->GetOptions(&options)))
 				file_open->SetOptions(
 					options | FOS_FILEMUSTEXIST | FOS_PATHMUSTEXIST | FOS_FORCEFILESYSTEM);
 
 			hr = file_open->Show(owner);
-			if (SUCCEEDED(hr))
-			{
+			if (SUCCEEDED(hr)) {
 				CComPtr<IShellItem> item;
 				hr = file_open->GetResult(&item);
 
@@ -240,8 +229,7 @@ namespace winralter {
 			m_combobox->SetWindowText(L"");
 	}
 
-	bool cwr_helper::save_cmd_to_file(const CString& cmd_to_save)
-	{
+	bool cwr_helper::save_cmd_to_file(const CString& cmd_to_save) {
 		CStringW command(cmd_to_save);
 		command.Trim();
 		if (command.IsEmpty())
@@ -267,7 +255,7 @@ namespace winralter {
 		if (input.bad())
 			return false;
 		input.close();
-		lines.push_back(command_utf8); // Most recently used command goes last.
+		lines.push_back(command_utf8); /* Most recently used command goes last */
 
 		{
 			std::ofstream output(temporary, std::ios::binary | std::ios::trunc);
@@ -280,15 +268,14 @@ namespace winralter {
 				return false;
 		}
 
-		// Replace only after the complete new file has been written successfully.
+		/* Replace only after the complete new file has been written successfully */
 		if (!MoveFileExW(temporary.c_str(), destination.c_str(),
 			MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH))
 			return false;
 		return true;
 	}
 
-	void cwr_helper::remove_cmd_from_file(const CString& remove_command, ccombo_completion* m_combobox)
-	{
+	void cwr_helper::remove_cmd_from_file(const CString& remove_command, ccombo_completion* m_combobox)	{
 		CT2A utf8_remove(remove_command, CP_UTF8);
 		const std::string remove_command_utf8(utf8_remove);
 		const std::filesystem::path destination(permanent_config);
@@ -319,6 +306,7 @@ namespace winralter {
 			if (!output)
 				return;
 		}
+
 		if (MoveFileExW(temporary.c_str(), destination.c_str(),
 			MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH))
 			load_cmd_from_file(m_combobox);

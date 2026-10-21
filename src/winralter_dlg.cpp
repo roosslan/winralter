@@ -3,7 +3,6 @@
 #include "winralter.h"
 #include "winralter_dlg.h"
 #include "cwr_helper.h"
-#include <atlconv.h>
 
 /*
 #ifdef _DEBUG
@@ -50,7 +49,7 @@ namespace winralter {
 		SetForegroundWindow();
 		SetActiveWindow();
 
-		// Remove the topmost status after raising the window.
+		/* Remove the topmost status after raising the window */
 		SetWindowPos(
 			&CWnd::wndNoTopMost,
 			0, 0, 0, 0,

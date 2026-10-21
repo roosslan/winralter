@@ -15,41 +15,41 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="combo_completion.cpp">
+    <ClCompile Include="src\combo_completion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="winralter.cpp">
+    <ClCompile Include="src\winralter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="winralter_dlg.cpp">
+    <ClCompile Include="src\winralter_dlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cwr_helper.cpp">
+    <ClCompile Include="src\cwr_helper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="combo_completion.h">
+    <ClInclude Include="src\combo_completion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="winralter.h">
+    <ClInclude Include="src\winralter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="winralter_dlg.h">
+    <ClInclude Include="src\winralter_dlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="src\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cwr_helper.h">
+    <ClInclude Include="src\cwr_helper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="src\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="winralter.rc">
+    <ResourceCompile Include="res\winralter.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

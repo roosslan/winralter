@@ -1,6 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "resource.h"
+#include "..\src\resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,6 @@ IDI_ICON_MAIN           ICON                    "res\\run.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////
-// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
@@ -126,12 +125,11 @@ BEGIN
     0
 END
 
-#endif    // English (United States) resources
+#endif
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// English (Australia) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENA)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_AUS
@@ -177,13 +175,13 @@ BEGIN
     "#pragma code_page(1252)\r\n"
     "#endif\r\n"
     "#include ""res\\winralter.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
-    "#include ""afxres.rc""         // Standard components\r\n"
+    "#include ""afxres.rc""           // Standard components\r\n"
     "#endif\0"
 END
 
 #endif    // APSTUDIO_INVOKED
 
-#endif    // English (Australia) resources
+#endif
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -204,7 +202,7 @@ LANGUAGE 9, 1
 #pragma code_page(1252)
 #endif
 #include "res\winralter.rc2"  // non-Microsoft Visual C++ edited resources
-#include "afxres.rc"         // Standard components
+#include "afxres.rc"          // Standard components
 #endif
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED

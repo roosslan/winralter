@@ -43,8 +43,20 @@ namespace winralter {
 		else
 			ShowWindow(SW_SHOW);
 
+		// Temporarily place the window above other windows.
+		SetWindowPos(&CWnd::wndTopMost,	0, 0, 0, 0,	SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+
+		BringWindowToTop();
 		SetForegroundWindow();
 		SetActiveWindow();
+
+		// Remove the topmost status after raising the window.
+		SetWindowPos(
+			&CWnd::wndNoTopMost,
+			0, 0, 0, 0,
+			SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+
+		SetForegroundWindow();
 		m_combobox.SetFocus();
 
 		return 0;

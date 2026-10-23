@@ -19,9 +19,9 @@ jobs:
     runs-on: windows-2022
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: microsoft/setup-msbuild@v2
+      - uses: microsoft/setup-msbuild@v3
 
       - name: Сборка
         run: msbuild winralter.sln /m /nologo /p:Configuration=Release /p:Platform=x64
@@ -105,7 +105,7 @@ jobs:
         run: |
           Get-ChildItem dist\cab -Filter *.cab
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: winralter-x64
           path: dist/cab/*.cab
@@ -123,7 +123,7 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: winralter-x64
 

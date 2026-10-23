@@ -1,4 +1,4 @@
-#include "cwr_helper.h"
+п»ї#include "cwr_helper.h"
 
 namespace winralter {
 	std::string get_config_file_path(const int config_file_type) {
@@ -24,7 +24,7 @@ namespace winralter {
 		if (strcat_s(current_path, MAX_PATH, fn_ini) != 0)
 			return std::string(fn_ini + 1);
 
-		/* Пишем в директорию »Мои документы«, если не нашли ini-файл */
+		/* РџРёС€РµРј РІ РґРёСЂРµРєС‚РѕСЂРёСЋ В»РњРѕРё РґРѕРєСѓРјРµРЅС‚С‹В«, РµСЃР»Рё РЅРµ РЅР°С€Р»Рё ini-С„Р°Р№Р» */
 		if (!std::filesystem::exists(std::string(current_path)) && config_file_type != 1) {
 			CHAR my_documents[MAX_PATH]{};
 			const HRESULT result = SHGetFolderPathA(
@@ -76,8 +76,8 @@ namespace winralter {
 		if (command.IsEmpty())
 			return false;
 
-		/* После пути к .exe в кавычках - идут аргументы
-		   Если команда без кавычек, то первый пробел считаем разделителем от параметра */
+		/* РџРѕСЃР»Рµ РїСѓС‚Рё Рє .exe РІ РєР°РІС‹С‡РєР°С… - РёРґСѓС‚ Р°СЂРіСѓРјРµРЅС‚С‹
+		   Р•СЃР»Рё РєРѕРјР°РЅРґР° Р±РµР· РєР°РІС‹С‡РµРє, С‚Рѕ РїРµСЂРІС‹Р№ РїСЂРѕР±РµР» СЃС‡РёС‚Р°РµРј СЂР°Р·РґРµР»РёС‚РµР»РµРј РѕС‚ РїР°СЂР°РјРµС‚СЂР° */
 		std::wstring text(command.GetString());
 		std::wstring executable;
 		std::wstring parameters;

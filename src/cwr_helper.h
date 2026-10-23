@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "combo_completion.h"
 
 namespace winralter {

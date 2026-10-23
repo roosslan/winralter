@@ -1,4 +1,4 @@
-// winralter_dlg.cpp: implementation file
+п»ї// winralter_dlg.cpp: implementation file
 
 #include "winralter.h"
 #include "winralter_dlg.h"
@@ -42,7 +42,7 @@ namespace winralter {
 		else
 			ShowWindow(SW_SHOW);
 
-		// Temporarily place the window above other windows.
+		/* Temporarily place the window above other windows */
 		SetWindowPos(&CWnd::wndTopMost,	0, 0, 0, 0,	SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 
 		BringWindowToTop();
@@ -104,13 +104,18 @@ namespace winralter {
 
 		cwr_helper::load_cmd_from_file(&m_combobox);
 
-		// char s[256];
-		// sprintf_s(s, "%d\n,%d\n,%d\n,%d\n", message, wParam, LOWORD(wParam), HIWORD(wParam));
-		// OutputDebugStringA(s);
+		/* char s[256];
+		 * sprintf_s(s, "%d\n,%d\n,%d\n,%d\n", message, wParam, LOWORD(wParam), HIWORD(wParam));
+         * OutputDebugStringA(s);
+		*/
 
 		m_combobox.SetFocus();
+		
+		/* РІС‹РґРµР»СЏРµРј РІРµСЃСЊ С‚РµРєСЃС‚ РїРѕСЃР»РµРґРЅРµР№ РєРѕРјР°РЅРґС‹ РІ РїРѕР»Рµ РІРІРѕРґР°, С‡С‚РѕР±С‹ РїСЂРё РІРІРѕРґРµ РЅРѕРІРѕР№ РєРѕРјР°РЅРґС‹ РѕРЅ Р·Р°РјРµРЅСЏР»СЃСЏ */
+		m_combobox.SetEditSel(0, -1);
+		
 		SetForegroundWindow();
-		return false;				// return true unless you set the focus to a control
+		return false;				/* return true unless you set the focus to a control */
 	}
 
 	void cwinralter_dlg::OnPaint() {
@@ -121,7 +126,7 @@ namespace winralter {
 
 		const int splitY = 110;
 
-		// Верхняя половина — белая
+		/* Р’РµСЂС…РЅСЏСЏ РїРѕР»РѕРІРёРЅР° вЂ” Р±РµР»Р°СЏ */
 		CBrush whiteBrush(RGB(255, 255, 255));
 		dc.FillRect(
 			CRect(
@@ -131,7 +136,7 @@ namespace winralter {
 				splitY),
 			&whiteBrush);
 
-		// Нижняя половина — светло-серая
+		/* РќРёР¶РЅСЏСЏ РїРѕР»РѕРІРёРЅР° вЂ” СЃРІРµС‚Р»Рѕ-СЃРµСЂР°СЏ */
 		CBrush grayBrush(RGB(230, 230, 230));
 		dc.FillRect(
 			CRect(
@@ -147,11 +152,11 @@ namespace winralter {
 			pDC->SetBkMode(TRANSPARENT);
 
 			if (pWnd->GetDlgCtrlID() == IDC_PICTURE) {
-				// Фон Picture Control всегда белый
+				/* Р¤РѕРЅ Picture Control РІСЃРµРіРґР° Р±РµР»С‹Р№ */
 				return (HBRUSH)m_PictureBackgroundBrush.GetSafeHandle();
 			}
 
-			// Остальные StaticText — прозрачные
+			/* РћСЃС‚Р°Р»СЊРЅС‹Рµ StaticText вЂ” РїСЂРѕР·СЂР°С‡РЅС‹Рµ */
 			return (HBRUSH)GetStockObject(HOLLOW_BRUSH);
 		}
 

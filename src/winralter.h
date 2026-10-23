@@ -1,4 +1,4 @@
-// winralter.h: main header file for the WinRAlter application
+﻿// winralter.h: main header file for the WinRAlter application
 
 #if !defined(AFX_WINRALTER_H__115F4224_5CD5_11D1_ABBA_00A0243D1382__INCLUDED_)
 #define AFX_WINRALTER_H__115F4224_5CD5_11D1_ABBA_00A0243D1382__INCLUDED_

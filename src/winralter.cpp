@@ -1,4 +1,4 @@
-// winralter.cpp: Defines the class behaviors for the application
+﻿// winralter.cpp: Defines the class behaviors for the application
 
 #include "winralter.h"
 #include "winralter_dlg.h"

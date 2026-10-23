@@ -1,4 +1,4 @@
-// winralter_dlg.cpp: implementation file
+п»ї// winralter_dlg.cpp: implementation file
 
 #include "winralter.h"
 #include "winralter_dlg.h"
@@ -121,7 +121,7 @@ namespace winralter {
 
 		const int splitY = 110;
 
-		// Верхняя половина — белая
+		// Р’РµСЂС…РЅСЏСЏ РїРѕР»РѕРІРёРЅР° вЂ” Р±РµР»Р°СЏ
 		CBrush whiteBrush(RGB(255, 255, 255));
 		dc.FillRect(
 			CRect(
@@ -131,7 +131,7 @@ namespace winralter {
 				splitY),
 			&whiteBrush);
 
-		// Нижняя половина — светло-серая
+		// РќРёР¶РЅСЏСЏ РїРѕР»РѕРІРёРЅР° вЂ” СЃРІРµС‚Р»Рѕ-СЃРµСЂР°СЏ
 		CBrush grayBrush(RGB(230, 230, 230));
 		dc.FillRect(
 			CRect(
@@ -147,11 +147,11 @@ namespace winralter {
 			pDC->SetBkMode(TRANSPARENT);
 
 			if (pWnd->GetDlgCtrlID() == IDC_PICTURE) {
-				// Фон Picture Control всегда белый
+				// Р¤РѕРЅ Picture Control РІСЃРµРіРґР° Р±РµР»С‹Р№
 				return (HBRUSH)m_PictureBackgroundBrush.GetSafeHandle();
 			}
 
-			// Остальные StaticText — прозрачные
+			// РћСЃС‚Р°Р»СЊРЅС‹Рµ StaticText вЂ” РїСЂРѕР·СЂР°С‡РЅС‹Рµ
 			return (HBRUSH)GetStockObject(HOLLOW_BRUSH);
 		}
 

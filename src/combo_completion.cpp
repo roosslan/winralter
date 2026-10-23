@@ -1,4 +1,4 @@
-#include "cwr_helper.h"
+﻿#include "cwr_helper.h"
 #include "combo_completion.h"
 
 /*
